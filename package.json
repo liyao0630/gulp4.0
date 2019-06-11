@@ -1,0 +1,37 @@
+{
+  "name": "testgulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "folder": "gulp create --url=demo",
+    "dev": "gulp --url=demo",
+    "clean": "gulp clean --url=demo",
+    "build": "gulp build --mode=production --url=demo",
+    "build:clean": "gulp build:clean --mode=production --url=demo",
+    "exec": "gulp ts --mode=production --url=demo"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-image": "^5.1.0",
+    "gulp-open": "^3.0.1",
+    "gulp-rev-append-all": "^0.1.8",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-typescript": "^5.0.1",
+    "gulp-uglify": "^3.0.2",
+    "gulp-useref": "^3.1.6",
+    "gulp-util": "^3.0.8",
+    "gulp.spritesmith": "^6.10.1",
+    "http-proxy-middleware": "^0.19.1",
+    "node-sass": "^4.12.0",
+    "typescript": "^3.5.1",
+    "yargs": "^13.2.4"
+  }
+}
