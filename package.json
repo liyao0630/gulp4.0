@@ -32,7 +32,6 @@
     "gulp.spritesmith": "^6.10.1",
     "http-proxy-middleware": "^0.19.1",
     "node-sass": "^4.12.0",
-    "through2": "^3.0.1",
     "typescript": "^3.5.1",
     "yargs": "^13.2.4"
   }
