@@ -27,6 +27,9 @@ css雪碧图路径不加引号,在精灵图使用'?v='过滤,添加了版本号�
   > 如果需要控制版本号长度,gulp-rev-append-all->index.js两处'?v=' + hash.digest('hex')添加字符串截取即可
 
 ## 脚本命令
+
+注意修改脚本命令的url参数(构建目录)  
+
 folder 创建基本结构  
 dev 开发环境(不会构建,只是热更新、代理)  
 clean 删除dist的文件  
