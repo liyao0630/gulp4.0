@@ -10,12 +10,14 @@ const net = require('net'),
   sourcemaps = require('gulp-sourcemaps'),//source maps
   uglify = require('gulp-uglify'), //js压缩
   cleanCSS = require('gulp-clean-css'), // css处理
+  through = require('through2'),
+  spriter = require('gulp-css-spriter-filter'), // 精灵图
   sass = require('gulp-sass'),
   image = require('gulp-image'), //图片压缩
   clean = require('gulp-clean'),
   ts = require("gulp-typescript"),
   tsProject = ts.createProject("tsconfig.json"),
-  base = './' + argv.url + '/',
+  base = argv.url ? ('./' + argv.url + '/') : './',
   config = {
     protocol: 'http:',
     host: 'localhost',
@@ -25,11 +27,22 @@ const net = require('net'),
     htmlDir: '*.html', // HTML文件
     imageDir: 'img/**/*.+(jpg|jpeg|png|gif)', // 图片
     sassDir: 'sass/**/*.scss',
+    spriteDir: 'img/**/+(icon)*.*',
     cssDir: 'css/**/*.css', // css
     fontDir: '**/*.+(eot|ttf)', // 字体图标
     tsDir: 'module/**/*.ts', // typescript
     jsDir: 'js/**/*.js', // js
     libDir: 'lib/**', // lib
+    proxys: [ // 代理
+      proxy(['/user', '/game', '/order'], {
+        target: 'http://h5.7k7k.com',
+        changeOrigin: true
+      }),
+      proxy(['/api/seo'], {
+        target: 'http://t-h5.7k7k.com/v2',
+        changeOrigin: true
+      })
+    ],
     htmlOutput: 'dist/', // 导出html
     imageOutput: 'dist/img', // 导出图片
     sassDevOutput: 'sass', // 导出sass
@@ -44,19 +57,12 @@ const net = require('net'),
     tsMap: '../../map/module', // tsMap 相对于ts
     libOutput: 'dist/lib', // 导出lib
     fontOutput: 'dist', // 导出字体图标
-    proxys: [ // 代理
-      proxy(['/user', '/game', '/order'], {
-        target: 'http://h5.7k7k.com',
-        changeOrigin: true
-      }),
-      proxy(['/api/seo'], {
-        target: 'http://t-h5.7k7k.com/v2',
-        changeOrigin: true
-      })
-    ]
+    spriteOut: base + 'dist/sprite',
+    spriteCssOut: base + '/dist/img/spriteSheet.png',
+    spriteCssPathOut: '../img/spriteSheet.png?v=' + new Date().getTime()
   };
 
-  sass.compiler = require('node-sass');
+sass.compiler = require('node-sass');
 
 // cmd set cross-env NODE_ENV=development get process.env.NODE_ENV   
 const utils = {
@@ -71,7 +77,8 @@ const utils = {
       return path.map(path => base + path)
     }
   },
-  output(outputPath) {
+  output(outputPath, done) {
+    done && done()
     if (this.getDevelopment()) {
       return connect.reload()
     } else {
@@ -152,7 +159,7 @@ gulp.task('html', () => {
 });
 
 gulp.task('image', (done) => {
-  return gulp.src(utils.getConfigPaht('imageDir'))
+  gulp.src([utils.getConfigPaht('imageDir')/* , '!' + base + 'img/sprite/**' */])
     .pipe(image({
       pngquant: true,
       optipng: false,
@@ -164,7 +171,7 @@ gulp.task('image', (done) => {
       svgo: true,
       concurrent: 10
     }))
-    .pipe(utils.output('imageOutput'))
+    .pipe(utils.output('imageOutput', done))
 });
 
 gulp.task("fontIcon", () => {
@@ -188,13 +195,32 @@ gulp.task("sass", () => {
 
 });
 
-gulp.task('css', gulp.series(function cssExec() {
-  return gulp.src(utils.getConfigPaht('cssDir'))
+var spritesmith = require('gulp.spritesmith');
+
+gulp.task('sprite', function () {
+  var spriteData = gulp.src(utils.getConfigPaht('spriteDir')).pipe(spritesmith({
+    imgName: 'sprite.png',
+    cssName: 'sprite.css'
+  }));
+  return spriteData.pipe(gulp.dest(config.spriteOut));
+});
+
+gulp.task('css', gulp.series(function cssExec(done) {
+  gulp.src(utils.getConfigPaht('cssDir'))
     .pipe(sourcemaps.init())
     .pipe(rev(config.version))
+    .pipe(spriter({
+      'spriteSheet': config.spriteCssOut,
+      'pathToSpriteSheetFromCSS': config.spriteCssPathOut,
+      'filter': {
+        parttner: '\\?v=',  // 筛选出 url 中带有 ?__spliter 的图片合成一张雪碧图
+        attributes: 'i' // 非必须，(i,g,m)
+      }
+    }))
     .pipe(cleanCSS())
     .pipe(sourcemaps.write(utils.getConfigPaht('cssMap')))
     .pipe(utils.output('cssOutput'))
+    done()
 }));
 
 gulp.task('js', function jsExec() {
@@ -221,11 +247,8 @@ gulp.task('ts', () => {
 });
 
 gulp.task('watch', (done) => {
-  gulp.watch(utils.getConfigPaht('htmlDir'), gulp.series('html'));
-  gulp.watch(utils.getConfigPaht('imageDir'), gulp.series('html'));
+  gulp.watch([utils.getConfigPaht('htmlDir'), utils.getConfigPaht('imageDir'), utils.getConfigPaht('cssDir'), utils.getConfigPaht('jsDir')], gulp.series('html'));
   gulp.watch(utils.getConfigPaht('sassDir'), gulp.series('sass', 'html'));
-  gulp.watch(utils.getConfigPaht('cssDir'), gulp.series('html'));
-  gulp.watch(utils.getConfigPaht('jsDir'), gulp.series('html'));
   gulp.watch(utils.getConfigPaht('tsDir'), gulp.series('ts', 'html'));
   done()
 });
@@ -233,14 +256,14 @@ gulp.task('watch', (done) => {
 gulp.task('default', gulp.series('server', 'open', 'watch', function defaultExec(done) {
   done()
 }));
-gulp.task('build', gulp.parallel('lib', 'sass', 'css', 'image', 'ts', 'js', 'html', function buildExec(done) {
+gulp.task('build', gulp.series('lib', 'sass', 'css', 'image', 'ts', 'js', 'html', function buildExec(done) {
   done()
 }))
 gulp.task('build:clean', gulp.series('clean', 'build', function buildCleanExec(done) {
   done()
 }));
 
-gulp.task('create', function (done) {
+gulp.task('folder', function (done) {
   const cssRest = `body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{ margin:0; padding:0;}
 body,input,textarea{font-family:"Microsoft Yahei";}
 textarea{resize:none;outline:none;}
@@ -273,7 +296,7 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
     <script type="text/javascript" src="./js/index.js"></script>
   </body>
 </html>`;
-  
+
   function createFolder(path) {
     if (fs.existsSync(path)) {
       console.log(`${path}已存在!`)
@@ -303,3 +326,7 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
 
   done();
 });
+
+
+
+
