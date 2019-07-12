@@ -16,5 +16,5 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
 .clearfix:after{clear:both;content:'.';display:block;width: 0;height: 0;visibility:hidden;}
 .clearfix{zoom:1;}
 .dog{background: url(../img/sprite/icon_dog.jpg) no-repeat;width: 200px;height: 150px;}
-.bird{background: url('../img/sprite/icon_bird.jpg') no-repeat;width: 200px;height: 113px;}
+.bird{background: url(../img/sprite/icon_bird.jpg) no-repeat;width: 200px;height: 113px;}
 .dusk{background: url('../img/dusk.jpg') no-repeat;width: 160px;height: 160px;}

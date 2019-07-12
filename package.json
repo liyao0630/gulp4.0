@@ -11,7 +11,7 @@
     "build:clean": "gulp build:clean --mode=production --url=demo",
     "exec": "gulp image --mode=production --url=demo"
   },
-  "author": "",
+  "author": "liyao0630",
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^5.2.0",
@@ -34,5 +34,6 @@
     "node-sass": "^4.12.0",
     "typescript": "^3.5.1",
     "yargs": "^13.2.4"
-  }
+  },
+  "dependencies": {}
 }

@@ -1,19 +1,16 @@
-const net = require('net'),
-  path = require('path'),
-  fs = require('fs'),
-  argv = require('yargs').argv, //命令行传参格式 --name val
+const fs = require('fs'),
+  argv = require('yargs').argv,
   gulp = require('gulp'),
   connect = require('gulp-connect'),
   proxy = require('http-proxy-middleware'),
   open = require('gulp-open'),
   rev = require('gulp-rev-append-all'),
-  sourcemaps = require('gulp-sourcemaps'),//source maps
-  uglify = require('gulp-uglify'), //js压缩
-  cleanCSS = require('gulp-clean-css'), // css处理
-  through = require('through2'),
-  spriter = require('gulp-css-spriter-filter'), // 精灵图
+  sourcemaps = require('gulp-sourcemaps'),
+  uglify = require('gulp-uglify'),
+  cleanCSS = require('gulp-clean-css'),
+  spriter = require('gulp-css-spriter-filter'),
   sass = require('gulp-sass'),
-  image = require('gulp-image'), //图片压缩
+  image = require('gulp-image'),
   clean = require('gulp-clean'),
   ts = require("gulp-typescript"),
   tsProject = ts.createProject("tsconfig.json"),
@@ -34,14 +31,10 @@ const net = require('net'),
     jsDir: 'js/**/*.js', // js
     libDir: 'lib/**', // lib
     proxys: [ // 代理
-      proxy(['/user', '/game', '/order'], {
+      /* proxy(['/user', '/game', '/order'], {
         target: 'http://h5.7k7k.com',
         changeOrigin: true
-      }),
-      proxy(['/api/seo'], {
-        target: 'http://t-h5.7k7k.com/v2',
-        changeOrigin: true
-      })
+      }) */
     ],
     htmlOutput: 'dist/', // 导出html
     imageOutput: 'dist/img', // 导出图片
@@ -85,27 +78,6 @@ const utils = {
       return gulp.dest(this.getConfigPaht(outputPath))
     }
   },
-  portIsOccupied(port) {
-    const server = net.createServer().listen(port)
-    server.on('listening', (error) => {
-      console.log(error);
-      console.log(`the server is running on port ${port}`)
-      server.close()
-      config.port = port
-      console.log('port', port)
-    })
-
-    server.on('error', (err) => {
-      console.log(err)
-      console.log(err.code)
-      if (err.code === 'EADDRINUSE') {
-        portIsOccupied(port + 1)
-        console.log(`this port ${port} is occupied.try another.`)
-      } else {
-        console.log(err)
-      }
-    })
-  },
   deleteFileRecursive(path) {
     if (fs.existsSync(path)) {
       fs.readdirSync(path).forEach(function (file, index) {
@@ -141,10 +113,10 @@ gulp.task('server', (done) => {
 
 gulp.task('open', () => {
   return gulp.src(base + './index.html')
-    .pipe(open({
-      uri: config.protocol + '//' + config.host + ':' + config.port,
-      app: 'Google Chrome'
-    }));
+  .pipe(open({
+    uri: config.protocol + '//' + config.host + ':' + config.port,
+    app: 'Google Chrome'
+  }));
 })
 
 gulp.task('lib', () => {
@@ -205,7 +177,7 @@ gulp.task('sprite', function () {
   return spriteData.pipe(gulp.dest(config.spriteOut));
 });
 
-gulp.task('css', gulp.series(function cssExec(done) {
+gulp.task('css', gulp.series(function css(done) {
   gulp.src(utils.getConfigPaht('cssDir'))
     .pipe(sourcemaps.init())
     .pipe(rev(config.version))
@@ -220,10 +192,10 @@ gulp.task('css', gulp.series(function cssExec(done) {
     .pipe(cleanCSS())
     .pipe(sourcemaps.write(utils.getConfigPaht('cssMap')))
     .pipe(utils.output('cssOutput'))
-    done()
+  done()
 }));
 
-gulp.task('js', function jsExec() {
+gulp.task('js', function js() {
   return gulp.src(utils.getConfigPaht('jsDir'))
     .pipe(sourcemaps.init())
     .pipe(uglify())
@@ -253,18 +225,17 @@ gulp.task('watch', (done) => {
   done()
 });
 
-gulp.task('default', gulp.series('server', 'open', 'watch', function defaultExec(done) {
+gulp.task('default', gulp.series('server', 'open', 'watch', function defaultFn(done) {
   done()
 }));
-gulp.task('build', gulp.series('lib', 'sass', 'css', 'image', 'ts', 'js', 'html', function buildExec(done) {
+gulp.task('build', gulp.series('lib', 'sass', 'css', 'image', 'ts', 'js', 'html', function build(done) {
   done()
 }))
-gulp.task('build:clean', gulp.series('clean', 'build', function buildCleanExec(done) {
+gulp.task('build:clean', gulp.series('clean', 'build', function buildClean(done) {
   done()
 }));
 
-gulp.task('folder', function (done) {
-  const cssRest = `body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{ margin:0; padding:0;}
+const cssRest = `body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{ margin:0; padding:0;}
 body,input,textarea{font-family:"Microsoft Yahei";}
 textarea{resize:none;outline:none;}
 fieldset,img{border:0;}
@@ -282,7 +253,8 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
 .clearfix:after{clear:both;content:'.';display:block;width: 0;height: 0;visibility:hidden;}
 .clearfix{zoom:1;}`;
 
-  const htmlTemplate = `<!DOCTYPE html>
+
+const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-cn">
   <head>
     <meta charset="UTF-8">
@@ -297,6 +269,7 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
   </body>
 </html>`;
 
+gulp.task('folder', function (done) {
   function createFolder(path) {
     if (fs.existsSync(path)) {
       console.log(`${path}已存在!`)
@@ -317,7 +290,6 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
 
   createFolder(base + 'img')
   createFolder(base + 'css')
-  createFolder(base + 'module')
   createFolder(base + 'js')
 
   createFile(base + 'css/style.css', cssRest)
