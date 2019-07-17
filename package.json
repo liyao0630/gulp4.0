@@ -1,5 +1,5 @@
 {
-  "name": "testgulp",
+  "name": "gulp4.0-config",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,8 +8,7 @@
     "dev": "gulp --url=demo",
     "clean": "gulp clean --url=demo",
     "build": "gulp build --mode=production --url=demo",
-    "build:clean": "gulp build:clean --mode=production --url=demo",
-    "exec": "gulp image --mode=production --url=demo"
+    "build:clean": "gulp build:clean --mode=production --url=demo"
   },
   "author": "liyao0630",
   "license": "ISC",
