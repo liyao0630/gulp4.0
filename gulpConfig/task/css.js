@@ -16,6 +16,7 @@ module.exports = (gulp, { utils, config, plugins: { sourcemaps, rev, spriter, px
         /* spritesmithOptions: {
           padding: 20
           cssTemplate:(data)=>{
+            //https://www.cnblogs.com/lakeInHeart/p/7252240.html
           // data为对象，保存合成前小图和合成打大图的信息包括小图在大图之中的信息
              let arr = [],
                   width = data.spritesheet.px.width,
