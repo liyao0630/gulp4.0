@@ -8,7 +8,8 @@ module.exports = exports = {
   getConfigPaht(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
-      return path.resolve(config.BASE + outputPath)
+      // return path.resolve(config.BASE + outputPath)
+      return config.BASE + outputPath
     }
     throw new Error(`${outputPath}不存在`)
   },

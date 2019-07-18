@@ -42,5 +42,5 @@ module.exports = exports = {
   fontOutput: 'dist/', // 导出字体图标
   spriteOut: 'dist/sprite',
   spriteCssOut: 'dist/img/spriteSheet.png',
-  spriteCssPathOut: '/dist/img/spriteSheet.png?v=' + new Date().getTime()
+  spriteCssPathOut: 'img/spriteSheet.png?v=' + new Date().getTime()
 }

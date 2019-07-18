@@ -3,7 +3,7 @@ module.exports = (gulp, { config, plugins: { open } }) => {
     return gulp.src(config.BASE)
       .pipe(open({
         uri: config.protocol + '//' + config.host + ':' + config.port,
-        app: 'Google Chrome'
+        // app: 'Google Chrome'
       }));
   })
 }
