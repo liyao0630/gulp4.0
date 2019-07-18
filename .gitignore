@@ -61,4 +61,5 @@ typings/
 .next
 
 work/
+login-zc
 yarn.lock

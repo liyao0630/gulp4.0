@@ -8,7 +8,7 @@ gulp task --url=path
 
 单独运行task时不会构建,需要添加mode参数,默认为空;
 ```
-gulp --url=path --mode=production
+gulp --url=path --NODE_ENV=production
 ```
 ## 注意事项
 
