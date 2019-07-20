@@ -16,6 +16,6 @@ gulp.task('build', gulp.series('copy_lib', 'sass', 'css', 'image_min', 'ts', 'js
   done()
 }))
 
-gulp.task('default', gulp.series('connect', 'open_browser', 'watch', (done) => {
+gulp.task('default', gulp.series('sass', 'ts', 'connect', 'open_browser', 'watch', (done) => {
   done()
 }))

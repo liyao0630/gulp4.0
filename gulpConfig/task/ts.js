@@ -7,7 +7,7 @@ module.exports = (gulp, { config, utils, plugins: { sourcemaps, ts, uglify } }) 
       .pipe(tsProject())
       .pipe(config.DEV ? utils.continue() : uglify())
       .pipe(config.DEV ? utils.continue() : sourcemaps.write(config.tsMap))
-      .pipe(gulp.dest(utils.getOutput('tsOutput')))
+      .pipe(config.DEV ? gulp.dest(utils.getOutput('tsDevDir')) : gulp.dest(utils.getOutput('tsOutput')))
   });
 
 }
