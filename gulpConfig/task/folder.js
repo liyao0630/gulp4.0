@@ -1,6 +1,7 @@
 const fs = require('fs')
 
-module.exports = (gulp, { config }) => {
+module.exports = (gulp, { config, utils }) => {
+
   const cssRest = `body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{ margin:0; padding:0;}
 body,input,textarea{font-family:"Microsoft Yahei";}
 textarea{resize:none;outline:none;}
@@ -36,32 +37,22 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
 </html>`
 
   gulp.task('folder', function (done) {
-    function createFolder(path) {
-      if (fs.existsSync(path)) {
-        console.log(`${path}已存在!`)
-        return true
-      }
-      fs.mkdirSync(path)
-      console.log(`${path}创建成功。`)
+    if (utils.existsSync(config.BASE)) {
+      utils.createFolder(config.BASE + 'img')
+      utils.createFolder(config.BASE + 'css')
+      utils.createFolder(config.BASE + 'sass')
+      utils.createFolder(config.BASE + 'js')
+      utils.createFolder(config.BASE + 'ts')
+
+      utils.createFile(config.BASE + 'css/style.css', cssRest)
+      utils.createFile(config.BASE + 'sass/style.scss', '')
+      utils.createFile(config.BASE + 'js/index.js', '')
+      utils.createFile(config.BASE + 'ts/index.ts', '')
+      utils.createFile(config.BASE + 'index.html', htmlTemplate)
+      
+    } else {
+      console.log(`${config.BASE}不存在`)
     }
-
-    function createFile(path, data) {
-      if (fs.existsSync(path)) {
-        console.log(`${path}已存在!`)
-        return true
-      }
-      fs.writeFileSync(path, data)
-      console.log(`${path}创建成功。`)
-    }
-
-    createFolder(config.BASE + 'img')
-    createFolder(config.BASE + 'css')
-    createFolder(config.BASE + 'js')
-
-    createFile(config.BASE + 'css/style.css', cssRest)
-    createFile(config.BASE + 'js/index.js', '')
-    createFile(config.BASE + 'index.html', htmlTemplate)
-
     done()
   })
 }

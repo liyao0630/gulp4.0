@@ -1,30 +1,28 @@
-# gulp
+## 命令行参数
+构建目录相对当前目录(不用每个项目都重新安装依赖，默认当前目录)
+--url=path
 
-使用gulp命令行\脚本命令需添加相对路径的工作目录,默认为当前目录;
-主要为了解决不用每次都重新安装依赖
-```
-gulp task --url=path
-```
+环境配置
+--NODE_ENV=production
 
-单独运行task时不会构建,需要添加mode参数,默认为空;
-```
-gulp --url=path --NODE_ENV=production
-```
-## 注意事项
+px 转 rem(rootsize=100)
+--REM=true
 
-静态文件添加版本号必须使用引号;  
+精灵图(移动端注意背景大小)
+--SPRITE=true
 
-需要作为雪碧图合并的图片不加引号,在雪碧图使用'?v='过滤,添加了版本号的就不会合并为雪碧图;  
+图片压缩
+--IMG=true
 
-##
+## task任务
 * 创建基本结构
 * 热更新
+* 打开浏览器
 * 代理
-* sass,css,js压缩并生成map文件
+* sass预编译
+* css,js压缩并生成map文件
 * 雪碧图
-  >实现了两种  
-  >1.gulp --url=path sprite 生产单独的sprite文件 只包含img/icon开头的图片  
-  >2.在每个css中混入
+  >需要作为雪碧图的图片不加引号
 * 图片压缩
 * 静态文件添加版本号
   > 如果需要控制版本号长度,gulp-rev-append-all->index.js两处'?v=' + hash.digest('hex')添加字符串截取即可
@@ -36,5 +34,4 @@ gulp --url=path --NODE_ENV=production
 folder 创建基本结构  
 dev 开发环境(不会构建,只是热更新、代理)  
 clean 删除dist的文件  
-build 构建  
-build:clean 删除并构建  
+build 构建 

@@ -12,7 +12,7 @@ fs.readdirSync(taskPath).filter(function (file) {
 })
 
 
-gulp.task('build', gulp.series('copy_lib', 'sass', 'css', 'image_min', 'js', 'html', (done) => {
+gulp.task('build', gulp.series('copy_lib', 'sass', 'css', 'image_min', 'ts', 'js', 'html', (done) => {
   done()
 }))
 

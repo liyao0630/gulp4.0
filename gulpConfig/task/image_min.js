@@ -1,7 +1,7 @@
-module.exports = (gulp, { utils, plugins: { image } }) => {
+module.exports = (gulp, { config, utils, plugins: { image } }) => {
   gulp.task('image_min', () => {
     return gulp.src([utils.getConfigPaht('imageDir')])
-      /* .pipe(image({
+      .pipe(config.IMG ? image({
         pngquant: true,
         optipng: false,
         zopflipng: true,
@@ -11,7 +11,7 @@ module.exports = (gulp, { utils, plugins: { image } }) => {
         gifsicle: true,
         svgo: true,
         concurrent: 10
-      })) */
+      }) : utils.continue())
       .pipe(gulp.dest(utils.getOutput('imageOutput')))
   })
 }

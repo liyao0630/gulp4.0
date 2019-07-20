@@ -12,8 +12,8 @@ module.exports = (gulp, { utils, config, plugins: { sourcemaps, rev, spriter, px
         },
         spriteSheetBuildCallback: function (err, result) {
           // console.log(result.image)
-          console.log(result.coordinates)
-          console.log(result.properties)
+          // console.log(result.coordinates)
+          // console.log(result.properties)
         },
         spritesmithOptions: {
           padding: 50,

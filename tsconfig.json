@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
-    "module": "AMD", // 模块系统 "None"， "CommonJS"， ""， "System"， "UMD"， "ES6"或 "ES2015"
-    "target": "ES5", // ES版本
+    // "module": "AMD", // 模块系统 "None"， "CommonJS"， "AMD"， "System"， "UMD"， "ES6"或 "ES2015"
+    "target": "ES3", // ES版本
     "experimentalDecorators": true, // 装饰器
     "noImplicitAny": true,
     "removeComments": true,
-    // "outFile": "index.js",
+    // "outFile": "main.js",
     "preserveConstEnums": true,
     "sourceMap": true,
     "typeRoots": ["node_modules/@types"] // 
   },
-  // "include": [
-  //   "./module"
-  // ],
   "exclude": [
     "node_modules"
   ]

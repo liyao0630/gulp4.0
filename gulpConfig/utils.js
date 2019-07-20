@@ -1,32 +1,54 @@
-var config = require('./config')
-var path = require('path')
-var gutil = require('gulp-util')
-var through = require('through2') // buffer 处理
-var PluginError = gutil.PluginError
+const config = require('./config')
+const fs = require('fs')
+const gutil = require('gulp-util')
+const through = require('through2') // buffer 处理
+const PluginError = gutil.PluginError
 
 module.exports = exports = {
+  existsSync(path) {
+    return fs.existsSync(path)
+  },
+
+  createFolder(path) {
+    if (fs.existsSync(path)) {
+      return console.log(`${path}已存在!`)
+    }
+    fs.mkdirSync(path)
+    console.log(`${path}创建成功。`)
+  },
+
+  createFile(path, data) {
+    if (fs.existsSync(path)) {
+      return console.log(`${path}已存在!`)
+    }
+    fs.writeFileSync(path, data)
+    console.log(`${path}创建成功。`)
+  },
+
   getConfigPaht(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
-      // return path.resolve(config.BASE + outputPath)
       return config.BASE + outputPath
     }
-    throw new Error(`${outputPath}不存在`)
+    console.log(`${outputPath}不存在`)
   },
+
   getOutput(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
-      return path.resolve(config.BASE + outputPath)
+      return config.BASE + outputPath
     }
-    throw new Error(`${outputPath}不存在`)
+    console.log(`${outputPath}不存在`)
   },
+
   getMapOutput(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
       return outputPath
     }
-    throw new Error(`${outputPath}不存在`)
+    console.log(`${outputPath}不存在`)
   },
+  
   continue() {
     var stream = through.obj(function (file, enc, cb) {
       if (file.isStream()) {

@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "folder": "gulp folder --url=login-zc",
-    "dev": "gulp --url=login-zc",
-    "clean": "gulp clean --url=login-zc",
-    "build": "gulp build --NODE_ENV=production --url=login-zc",
-    "build:clean": "gulp build:clean --NODE_ENV=production --REM=true --SPRITE=true --url=login-zc"
+    "folder": "gulp folder --url=work/a1",
+    "dev": "gulp --url=work/a1",
+    "clean": "gulp clean --url=work/a1",
+    "build:test": "gulp ts --NODE_ENV=production --url=work/a1",
+    "build": "gulp build --NODE_ENV=production --url=work/a1"
   },
   "author": "liyao0630",
   "license": "ISC",
@@ -17,7 +17,7 @@
     "@babel/preset-env": "^7.5.5",
     "cross-env": "^5.2.0",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0-beta.2",
+    "gulp-babel": "^8.0.0",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-connect": "^5.7.0",
