@@ -28,7 +28,7 @@ module.exports = exports = {
   getConfigPaht(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
-      return config.BASE + outputPath
+      return config.url + outputPath
     }
     console.log(`${outputPath}不存在`)
   },
@@ -36,7 +36,7 @@ module.exports = exports = {
   getOutput(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
-      return config.BASE + outputPath
+      return config.url + outputPath
     }
     console.log(`${outputPath}不存在`)
   },

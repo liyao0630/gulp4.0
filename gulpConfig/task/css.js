@@ -3,7 +3,7 @@ module.exports = (gulp, { utils, config, plugins: { sourcemaps, rev, spriter, px
     return gulp.src(utils.getConfigPaht('cssDir'))
       .pipe(sourcemaps.init())
       .pipe(rev())
-      .pipe(config.SPRITE ? spriter({
+      .pipe(config.sprite ? spriter({
         'spriteSheet': utils.getOutput('spriteCssOut')/* config.spriteCssOut */,
         'pathToSpriteSheetFromCSS': config.spriteCssPathOut,
         'filter': {
@@ -19,7 +19,7 @@ module.exports = (gulp, { utils, config, plugins: { sourcemaps, rev, spriter, px
           padding: 50,
         }
       }) : utils.continue())
-      .pipe(config.REM ? pxtorem({
+      .pipe(config.rem ? pxtorem({
         rootValue: 100, // 根元素字体大小
         unitPrecision: 5, // 允许REM单位增长的十进制数
         propList: ['*'],  //替换的属性

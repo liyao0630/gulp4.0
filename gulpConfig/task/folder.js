@@ -37,21 +37,21 @@ a{text-decoration:none;cursor:pointer;color:#7ea4cc;outline:none;}
 </html>`
 
   gulp.task('folder', function (done) {
-    if (utils.existsSync(config.BASE)) {
-      utils.createFolder(config.BASE + 'img')
-      utils.createFolder(config.BASE + 'css')
-      utils.createFolder(config.BASE + 'sass')
-      utils.createFolder(config.BASE + 'js')
-      utils.createFolder(config.BASE + 'ts')
+    if (utils.existsSync(config.url)) {
+      utils.createFolder(config.url + 'img')
+      utils.createFolder(config.url + 'css')
+      utils.createFolder(config.url + 'sass')
+      utils.createFolder(config.url + 'js')
+      utils.createFolder(config.url + 'ts')
 
-      utils.createFile(config.BASE + 'css/style.css', cssRest)
-      utils.createFile(config.BASE + 'sass/style.scss', '')
-      utils.createFile(config.BASE + 'js/index.js', '')
-      utils.createFile(config.BASE + 'ts/index.ts', '')
-      utils.createFile(config.BASE + 'index.html', htmlTemplate)
+      utils.createFile(config.url + 'css/style.css', cssRest)
+      utils.createFile(config.url + 'sass/style.scss', '')
+      utils.createFile(config.url + 'js/index.js', '')
+      utils.createFile(config.url + 'ts/index.ts', '')
+      utils.createFile(config.url + 'index.html', htmlTemplate)
       
     } else {
-      console.log(`${config.BASE}不存在`)
+      console.log(`${config.url}不存在`)
     }
     done()
   })

@@ -1,17 +1,17 @@
-const argv = require('yargs').argv // 命令行传参
+const {NODE_ENV, url, img, rem, sprite} = require('yargs').argv // 命令行传参
 
 module.exports = exports = {
-  BASE: argv.url ? ('./' + argv.url + '/') : './',
-  DEV: (argv.NODE_ENV ? argv.NODE_ENV : 'development') === 'development',
-  IMG: argv.IMG || false,
-  REM: argv.REM || false,
-  SPRITE:  argv.SPRITE || false,
+  url: url ? ('./' + url + '/') : './',
+  dev: (NODE_ENV ? NODE_ENV : 'development') === 'development',
+  img: img || false,
+  rem: rem || false,
+  sprite:  sprite || false,
   protocol: 'http:',
   host: 'localhost',
   port: 4000,
   outputDirClean: 'dist',
   htmlDir: '*.html', // HTML文件
-  imageDir: 'img/**/*.+(jpg|jpeg|png|gif)', // 图片
+  imageDir: 'img/**/*.*', // 图片
   sassDir: 'sass/**/*.scss',
   spriteDir: 'img/**/+(icon)*.*',
   cssDir: 'css/**/*.css', // css

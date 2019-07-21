@@ -3,11 +3,11 @@ module.exports = (gulp, { config, utils, plugins: { sourcemaps, ts, uglify } }) 
 
   gulp.task('ts', () => {
     return gulp.src(utils.getConfigPaht('tsDir'))
-      .pipe(config.DEV ? utils.continue() : sourcemaps.init())
+      .pipe(config.dev ? utils.continue() : sourcemaps.init())
       .pipe(tsProject())
-      .pipe(config.DEV ? utils.continue() : uglify())
-      .pipe(config.DEV ? utils.continue() : sourcemaps.write(config.tsMap))
-      .pipe(config.DEV ? gulp.dest(utils.getOutput('tsDevDir')) : gulp.dest(utils.getOutput('tsOutput')))
+      .pipe(config.dev ? utils.continue() : uglify())
+      .pipe(config.dev ? utils.continue() : sourcemaps.write(config.tsMap))
+      .pipe(config.dev ? gulp.dest(utils.getOutput('tsDevDir')) : gulp.dest(utils.getOutput('tsOutput')))
   });
 
 }

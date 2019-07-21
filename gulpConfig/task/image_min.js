@@ -1,7 +1,7 @@
 module.exports = (gulp, { config, utils, plugins: { image } }) => {
   gulp.task('image_min', () => {
     return gulp.src([utils.getConfigPaht('imageDir')])
-      .pipe(config.IMG ? image({
+      .pipe(config.img ? image({
         pngquant: true,
         optipng: false,
         zopflipng: true,

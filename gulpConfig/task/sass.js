@@ -1,7 +1,7 @@
 module.exports = (gulp, { utils, config, plugins: { sass, nodeSass, rev, sourcemaps } }) => {
   sass.compiler = nodeSass
   gulp.task("sass", () => {
-    if (config.DEV) {
+    if (config.dev) {
       return gulp.src(utils.getConfigPaht('sassDir'))
         .pipe(sass({ outputStyle: 'compact' }).on('error', sass.logError))
         .pipe(gulp.dest(utils.getOutput('sassDevOutput')));

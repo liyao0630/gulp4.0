@@ -1,19 +1,3 @@
-## 命令行参数
-构建目录相对当前目录(不用每个项目都重新安装依赖，默认当前目录)  
---url=path  
-
-环境配置  
---NODE_ENV=production  
-
-px 转 rem(rootsize=100)  
---REM=true  
-
-精灵图(移动端注意背景大小)  
---SPRITE=true  
-
-图片压缩  
---IMG=true  
-
 ## task任务
 * 创建基本结构
 * 热更新
@@ -28,6 +12,23 @@ px 转 rem(rootsize=100)
 * 图片压缩
 * 静态文件添加版本号
   > 如果需要控制版本号长度,gulp-rev-append-all->index.js两处'?v=' + hash.digest('hex')添加字符串截取即可
+
+
+## 命令行参数
+环境配置(默认开发环境)  
+--NODE_ENV=production 
+
+构建目录相对当前目录(不用每个项目都重新安装依赖，默认当前目录)  
+--url=path   
+
+px 转 rem(rootsize=100)  
+--rem  
+
+精灵图(移动端注意背景大小)  
+--sprite  
+
+图片压缩  
+--img  
 
 ## 脚本命令
 
