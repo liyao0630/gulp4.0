@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{margin: 0; padding: 0;}
+    body{overflow: hidden;}
+    .layer {position: absolute; z-index: 999; top: 0; left: 0;}
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+      codebase="http://download.macromedia.com/pub/shockwave/cabs/flash.cab#version=9,0,28,0" width="100%"
+      height="100%">
+      <param name="movie" value="https://i.yx231.com/flash/A1.swf" />
+      <param name="allowScriptAccess" value="always" />
+      <param name="wmode" value="transparent" />
+      <param name="quality" value="high" />
+      <embed allowScriptAccess="always" src="https://i.yx231.com/flash/A1.swf" quality="high"
+        pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash"
+        type="application/x-shockwave-flash" width="100%" height="100%" wmode="transparent"></embed>
+    </object>
+  </div>
+  <!-- <a class="layer" href="http://game.jiulingwan.com/sdk.php/game/game/appid/100027/agent/0/channel/268"></a> -->
+  <script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+  <script>
+    dswf()
+    function dswf() {
+      var ww = $(window).width();
+      var hh = $(window).height();
+      var sww = hh * 2;
+      var marl = (sww - ww) / 2;
+      var wv = ww / hh;
+      if (wv <= 2) {
+        $('.main,.layer').css({ "height": hh, "width": sww, "marginLeft": "-" + marl + "px" });
+      } else {
+        $('.main,.layer').css({"height": ww / 2, "width": ww, "marginLeft": "0px"});
+        $('body').css({
+          "overflow-x": "hidden",
+          "overflow-y": "scroll"
+        })
+      }
+    }
+  </script>
+</body>
+
+</html>
