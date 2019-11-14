@@ -16,7 +16,15 @@ const plugins = {
   image:      require('gulp-image'),              // 图片压缩
   babel:      require("gulp-babel"),              // bable
   through:    require('through2'),                // buffer 处理
-  ts:         require("gulp-typescript")          // ts
+  ts:         require("gulp-typescript"),         // ts
+  browserify: require("browserify"),              // 所有的模块打包成单个文件
+  tsify:      require('tsify'),                   // browserify调用ts编译
+  source:     require('vinyl-source-stream'),     // stream转换为vinyl
+  buffer:     require('vinyl-buffer'),            // buffer转换为vinyl
+  fg:         require('fast-glob'),               // src转换
+  changed:    require('gulp-changed'),            // 编译缓存
+  watchify:   require("watchify"),                // browserify监听
+  concat:     require('concat-stream'),           // factor-bundle(browserify编译ts后对依赖进行过滤)处理
 }
 
 const config = require('./config')

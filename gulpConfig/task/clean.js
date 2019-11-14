@@ -8,7 +8,7 @@ module.exports = (gulp, { utils, plugins: { clean } }) => {
       })
         .pipe(clean())
     } else {
-      console.log(`${path}不存在`)
+      console.log(`目录${path}不存在`)
       done()
     }
   });

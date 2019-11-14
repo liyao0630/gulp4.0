@@ -3,21 +3,30 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "entryPath": "/test4",
   "scripts": {
-    "folder": "gulp folder --url=dalao/mapTraffic",
-    "dev": "gulp --url=dalao/mapTraffic",
-    "clean": "gulp clean --url=dalao/mapTraffic",
-    "build:test": "gulp ts --NODE_ENV=production --url=dalao/mapTraffic",
-    "build": "gulp build --NODE_ENV=production --url=dalao/mapTraffic"
+    "makedir": "gulp makedir",
+    "dev": "gulp",
+    "build": "gulp build --NODE_ENV=production",
+    "clean": "gulp clean",
+    "makedir:ts": "gulp makedir --ts",
+    "dev:ts": "gulp dev:ts",
+    "build:ts": "gulp build:ts --NODE_ENV=production"
   },
   "author": "liyao0630",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@types/jquery": "^3.3.31",
+    "browserify": "^16.5.0",
+    "concat-stream": "^2.0.0",
     "cross-env": "^5.2.0",
+    "factor-bundle": "^2.5.0",
+    "fast-glob": "^3.1.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-changed": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-connect": "^5.7.0",
@@ -27,6 +36,7 @@
     "gulp-pxtorem": "^3.0.0",
     "gulp-rev-append-all": "^0.1.8",
     "gulp-sass": "^4.0.2",
+    "gulp-shell": "^0.7.1",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^5.0.1",
     "gulp-uglify": "^3.0.2",
@@ -36,8 +46,11 @@
     "http-proxy-middleware": "^0.19.1",
     "node-sass": "^4.12.0",
     "through2": "^3.0.1",
+    "tsify": "^4.0.1",
     "typescript": "^3.5.1",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.11.1",
     "yargs": "^13.2.4"
-  },
-  "dependencies": {}
+  }
 }

@@ -11,24 +11,29 @@ module.exports = exports = {
 
   createFolder(path) {
     if (fs.existsSync(path)) {
-      return console.log(`${path}已存在!`)
+      return console.log(`目录${path}已存在!`)
     }
     fs.mkdirSync(path)
-    console.log(`${path}创建成功。`)
+    console.log(`目录${path}创建成功。`)
   },
 
   createFile(path, data) {
     if (fs.existsSync(path)) {
-      return console.log(`${path}已存在!`)
+      return console.log(`文件${path}已存在!`)
     }
     fs.writeFileSync(path, data)
-    console.log(`${path}创建成功。`)
+    console.log(`文件${path}创建成功。`)
   },
 
-  getConfigPaht(outputPath) {
+  getEntryPath(outputPath) {
     outputPath = config[outputPath]
+    if (Array.isArray(outputPath)) {
+      return outputPath.map(path => {
+        return config.url + config.entryDir + path
+      })
+    }
     if (typeof outputPath === 'string') {
-      return config.url + outputPath
+      return config.url + config.entryDir + outputPath
     }
     console.log(`${outputPath}不存在`)
   },
@@ -36,7 +41,7 @@ module.exports = exports = {
   getOutput(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
-      return config.url + outputPath
+      return config.url + config.outputDir + outputPath
     }
     console.log(`${outputPath}不存在`)
   },
@@ -44,7 +49,7 @@ module.exports = exports = {
   getMapOutput(outputPath) {
     outputPath = config[outputPath]
     if (typeof outputPath === 'string') {
-      return outputPath
+      return config.mapOutputDir + outputPath
     }
     console.log(`${outputPath}不存在`)
   },
