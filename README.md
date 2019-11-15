@@ -9,10 +9,11 @@
 | entry | ts入口 |
 | ts_modules | ts模块 |
 
+## package
+entryPath 入口目录
+
 
 ## 命令行参数
 环境配置(默认开发环境)  
 --NODE_ENV=production 
-
-构建目录相对当前目录 
---url=path     
+  

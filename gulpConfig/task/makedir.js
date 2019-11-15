@@ -2,12 +2,14 @@ const fs = require('fs')
 
 module.exports = (gulp, { config, utils }) => {
   gulp.task('makedir', function (done) {
-    if (!utils.existsSync(config.url)) {
-      utils.createFolder(config.url)
-    }
-    if (!utils.existsSync(config.url + config.entryDir)) {
-      utils.createFolder(config.url + config.entryDir)
-    }
+    let pathArr = (config.url + config.entryDir).split('/')
+    let pathAll = ''
+    pathArr.forEach(val => {
+      pathAll += val +'/'
+      if (!utils.existsSync(pathAll)) {
+        utils.createFolder(pathAll)
+      }
+    })
 
     if (config.ts) {
       config.makedir.ts.forEach(path => utils.createFolder(config.url + config.entryDir + path))
